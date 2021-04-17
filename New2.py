@@ -484,3 +484,14 @@ class New2ptG(Scene):
         self.play(Write(title,3))
         self.play(Write(rightGroup, 2))
         self.wait()
+
+class New2clarification(Scene):
+    def construct(self):
+        text1 = Tex("Yes, there are technically two\\\\",
+                    "solutions, but in this context we\\\\"
+                    "only take into account the positive \\\\"
+                    "one. Remember, we're adding\\\\",
+                    "positive values only!\\\\",
+                    tex_to_color_map = {"positive values":YELLOW}).scale(1.8)
+        self.play(Create(text1))
+        self.wait(4)
