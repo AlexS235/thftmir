@@ -199,9 +199,8 @@ class New2(Scene):
                   ReplacementTransform(braceContinuedXconv2, braceContinuedXconv2simpleRc1))
         self.wait()
         self.play(FadeOut(continuedXconv2simpleR),
-                  FadeIn(continuedXconv2simpleRc1))
-        self.wait()
-        self.play(Write(braceContinuedXconv2TextDown))
+                  FadeIn(continuedXconv2simpleRc1),
+                  Write(braceContinuedXconv2TextDown))
         self.wait(2)
 #BACK TO CONTINUED FRAC
         self.play(FadeOut(continuedXconv2simpleRc1),
@@ -264,15 +263,224 @@ class New2ptB(Scene):
         convpi7 = MathTex("c_{7}=3.1415926534...", tex_to_color_map = {"3.141592653": GREEN, "4...":RED})
         convpi8 = MathTex("c_{8}=3.1415926536...", tex_to_color_map = {"3.141592653": GREEN, "6...":RED})
         convpi9 = MathTex("c_{9}=3.1415926535...", tex_to_color_map = {"3.1415926535": GREEN, "...":RED})
-        convpi9long = MathTex("c_{9}=3.1415926535811...", tex_to_color_map = {"3.1415926535": GREEN, "811...":RED}).scale(3)
-
+        #convpi9long = MathTex("c_{9}=3.1415926535811...", tex_to_color_map = {"3.1415926535": GREEN, "811...":RED}).scale(3)
+        #convpi2c = MathTex("c_{2}=3.1428571428...", tex_to_color_map = {"3.1428571428...":YELLOW}).scale(3)
+        convpi3c = MathTex("c_{3}=3.1415094339...", tex_to_color_map = {"3.1415": GREEN, "094339...":RED}).scale(3)
         convpi1to9 = VGroup(convpi1, convpi2, convpi3,
                             convpi4, convpi5, convpi6,
                             convpi7, convpi8, convpi9).arrange(DOWN).shift(DOWN*0.5)
+        fb = [SurroundingRectangle(convpi5), SurroundingRectangle(convpi6),SurroundingRectangle(convpi7),SurroundingRectangle(convpi8)]
 
-        
         self.play(Write(title2))
         self.play(Write(convpi1to9))
         self.wait()
-        self.play(Transform(convpi1to9, convpi9))
+        self.play(Create(fb[0]))
+        for i in [1,2,3]:
+            self.play(ReplacementTransform(fb[i-1],fb[i]))
+        self.wait()
+        self.play(FadeOut(convpi1),
+                  FadeOut(convpi2),
+                  FadeOut(convpi4),
+                  FadeOut(convpi5),
+                  FadeOut(convpi6),
+                  FadeOut(convpi7),
+                  FadeOut(convpi8),
+                  FadeOut(convpi9),
+                  FadeOut(fb[3]))
+        self.play(TransformMatchingTex(convpi3, convpi3c))
+        self.wait()
+        title3 = Tex("Pi is really easily approximated with fractions",
+                     tex_to_color_map = {"Pi is really easily approximated with fractions": BLUE}).scale(1.25).shift(DOWN*2.5)
+        self.play(Write(title3))
+        self.wait()
         
+class New2ptC(Scene):
+        def construct(self):
+            title4 = Tex("The most irrational number is \\\\ the hardest to approximate",
+                         tex_to_color_map = {"most irrational number": BLUE, "hardest": RED}).scale(2)
+            
+            continuedPi = MathTex("\\pi=", "3+", "\\frac{1}{7+\\frac{1}{15+\\frac{1}{1+\\frac{1}{292+\\frac{1}{1+...}}}}}").scale(2).shift(DOWN*0.5)
+            continuedPic = MathTex("\\pi=", "3+", "\\frac{1}{7+\\frac{1}{15+\\frac{1}{1+\\frac{1}{292+\\frac{1}{1+...}}}}}",
+                                  tex_to_color_map = {"292": GREEN}).scale(2).shift(DOWN*0.5)
+            braceContinuedFractionPi = Brace(continuedPi, direction=UP)
+            braceContinuedFractionPiText = braceContinuedFractionPi.get_text("Continued Fraction")
+        
+            self.play(Write(title4))
+            self.wait()
+            self.play(FadeOut(title4))
+            self.play(Write(continuedPi),
+                      Create(braceContinuedFractionPi),
+                      Write(braceContinuedFractionPiText))
+            self.wait()
+            self.play(FadeOut(continuedPi),
+                      FadeIn(continuedPic))
+            self.wait()
+
+class New2ptD(Scene):
+    def construct(self):
+        title1 = Tex("Most irrational number",
+                    tex_to_color_map = {"Most irrational number": BLUE}).scale(2).to_corner(UP)
+        title2 = Tex("The Golden Ratio",
+                    tex_to_color_map = {"The Golden Ratio": "#E1B658"}).scale(3).to_corner(UP)
+        math1 = MathTex("x").scale(3)
+        math2 = MathTex("x", "=", "1+", "\\frac{1}{1+\\frac{1}{1+\\frac{1}{1+\\frac{1}{1+\\frac{1}{1+...}}}}}").scale(2).shift(DOWN*0.5)
+        math3 = MathTex("x", "=", "1+", "\\frac{1}{1+\\frac{1}{1+\\frac{1}{1+\\frac{1}{1+\\frac{1}{1+...}}}}}",
+                        tex_to_color_map = {"1+\\frac{1}{1+\\frac{1}{1+\\frac{1}{1+\\frac{1}{1+...}}}}": YELLOW}).scale(2).shift(DOWN*0.5)
+        math4 = MathTex("x", "=", "1+", "\\frac{1}{x}").scale(3)
+        math5 = MathTex("x", "\\times x", "=", "x(", "1+", "\\frac{1}{x}", ")").scale(3)
+        math6 = MathTex("x","^2", "=", "x+1").scale(4)
+        math7 = MathTex("x", "=", "\\frac{1+\\sqrt{5} }{2}").scale(3)
+        math8 = MathTex("\\Phi", "=", "\\frac{1+\\sqrt{5} }{2}").scale(3)
+        math9 = MathTex("\\Phi", "=", "1.61803398...", tex_to_color_map = {"\\Phi": BLUE,"=": BLUE, "1.61803398...": BLUE}).to_corner(UP)
+        fb = SurroundingRectangle(math8[2])
+        self.play(Write(title1, 0.5))
+        self.play(Write(math1))
+        self.wait()
+        self.play(TransformMatchingTex(math1,math2))
+        self.wait()
+        self.play(FadeOut(math2),
+                  FadeIn(math3))
+        self.wait()
+        self.play(TransformMatchingTex(math3, math4))
+        self.wait()
+        self.play(TransformMatchingTex(math4, math5))
+        self.wait()
+        self.play(TransformMatchingTex(math5, math6))
+        self.wait()
+        self.play(TransformMatchingTex(math6, math7))
+        self.wait()
+        self.play(TransformMatchingTex(math7,math8))
+        self.wait()
+        self.play(Transform(title1,title2))
+        self.wait()
+        self.play(Create(fb))
+        self.wait()
+        self.play(Uncreate(fb))
+        self.wait()
+        self.play(FadeOut(title1))
+        self.play(TransformMatchingTex(math8, math9))
+        self.wait()
+
+class New2ptE(Scene):
+    def construct(self):
+        start = MathTex("\\Phi", "=", "1.61803398...", tex_to_color_map = {"\\Phi": BLUE,"=": BLUE, "1.61803398...": BLUE}).to_corner(UP)
+        self.add(start)
+
+        convphi = [MathTex("c_{1}=", "1 \\divisionsymbol 1", "=", "1.0000000000...", tex_to_color_map = {"1.": GREEN, "0000000000...":RED}),
+                   MathTex("c_{2}=", "2 \\divisionsymbol 1", "=", "2.0000000000...", tex_to_color_map = {"2.0000000000...":RED}),
+                   MathTex("c_{3}=", "3 \\divisionsymbol 2", "=", "1.5000000000...", tex_to_color_map = {"1.": GREEN, "5000000000...":RED}),
+                   MathTex("c_{4}=", "5 \\divisionsymbol 3", "=1.6666666666...", tex_to_color_map = {"1.6": GREEN, "666666666...":RED}),
+                   MathTex("c_{5}=", "8 \\divisionsymbol 5", "=1.6000000000...", tex_to_color_map = {"1.6": GREEN, "000000000...":RED}),
+                   MathTex("c_{6}=", "13 \\divisionsymbol 8", "=1.6250000000...", tex_to_color_map = {"1.6": GREEN, "250000000...":RED}),
+                   MathTex("c_{7}=", "21 \\divisionsymbol 13", "=1.6153846153...", tex_to_color_map = {"1.61": GREEN, "53846153...":RED}),
+                   MathTex("c_{8}=", "34 \\divisionsymbol 21", "=1.6190476190...", tex_to_color_map = {"1.61": GREEN, "90476190...":RED}),
+                   MathTex("c_{9}=", "55 \\divisionsymbol 34", "=1.6176470588...", tex_to_color_map = {"1.61": GREEN, "76470588...":RED}),
+                   MathTex("c_{10}=", "89 \\divisionsymbol 55", "=1.6181818182...", tex_to_color_map = {"1.618": GREEN, "1818182...":RED})]
+        convphigroup = VGroup()
+        for i in convphi:
+            convphigroup.add(i)
+        convphigroup.arrange(DOWN).scale(0.8)
+
+        convphi0 = MathTex("c_{1}=", "1").scale(3)
+        convphi1 = MathTex("c_{2}=", "1+\\frac{1}{1}", "=", "2").scale(3)
+        convphi2 = MathTex("c_{3}=", "1+\\frac{1}{ 1+\\frac{1}{1} }", "=", "\\frac{3}{2}").scale(2.5).shift(DOWN*0.5)
+        c10fb = SurroundingRectangle(convphi[9])
+        
+        convphifbgroup = VGroup()
+        for i in convphi:
+            convphifbgroup.add(SurroundingRectangle(i[1]))
+            
+        titlefib = Tex("Fibonacci \\\\ Sequence", tex_to_color_map = {"Fibonacci \\\\ Sequence": "#E1B658"}).scale(3).to_corner(LEFT)
+        smoltitlefib = Tex("Fibonacci Sequence", tex_to_color_map = {"Fibonacci Sequence": "#E1B658"}).scale(1.5)
+        why = MathTex("1", ",", "1", ",", "2", ",", "3", ",", "5", ",", "8", ",", "13", ",", "21", ",", "34", ",", "55", ",\\\\",
+                      "89", ",", "144", ",", "233", ",", "377", ",", "610", ",", "987", ",\\\\", "1597", ",", "2584", ",", "4181",
+                      ",", "6765", ",\\\\", "10946", ",", "17711", ",", "28657", ",", "46368", ",\\\\", "\\ldots").to_corner(RIGHT).shift(DOWN*0.5)
+        fibgroup = VGroup(smoltitlefib, why).arrange(DOWN).to_corner(RIGHT)
+        whyfb = [SurroundingRectangle(why[(12-1)*2]),
+                 SurroundingRectangle(why[(11-1)*2]),
+                 SurroundingRectangle(why[(24-1)*2]),
+                 SurroundingRectangle(why[(23-1)*2])]
+        
+        fibconv1 = VGroup(
+            MathTex("\\frac{144}{89}").scale(1.5),
+            MathTex("=1.6179775281...", tex_to_color_map = {"1.61": GREEN, "79775281...":RED})
+            ).scale(1.5).arrange(DOWN).to_corner(LEFT).shift(RIGHT/2)
+        fibconv2 = VGroup(
+            MathTex("\\frac{46368}{28657}").scale(1.5),
+            MathTex("\\\\ =1.6180339882...", tex_to_color_map = {"1.618033988": GREEN, "2...":RED})
+            ).scale(1.5).arrange(DOWN).to_corner(LEFT).shift(RIGHT/2)
+        self.play(Write(convphi0))
+        self.wait()
+        self.play(TransformMatchingTex(convphi0,convphi[0]))
+        self.wait()
+        self.play(Write(convphi1, 0.5))
+        self.wait()
+        self.play(TransformMatchingTex(convphi1,convphi[1]))
+        self.wait()
+        self.play(Write(convphi2, 0.5))
+        self.wait()
+        self.play(TransformMatchingTex(convphi2,convphi[2]))
+        self.wait()
+
+        for i in [3,4,5,6,7,8,9]:
+            self.play(Write(convphi[i],0.2))
+        self.wait()
+        self.play(Create(c10fb))
+        self.wait()
+        self.play(FadeOut(c10fb))
+        self.wait()
+        self.play(Create(convphifbgroup))
+        self.wait()
+        self.play(convphigroup.animate.shift(RIGHT*3.75),
+                  convphifbgroup.animate.shift(RIGHT*3.75))
+        self.play(Write(titlefib, 0.5))
+        self.wait()
+        self.play(Uncreate(convphigroup, run_time=0.5),
+                  Uncreate(convphifbgroup, run_time=0.5))
+        self.play(Write(why, 0.5))
+        self.play(Transform(titlefib, smoltitlefib))
+        self.wait()
+        self.play(Create(whyfb[0]),
+                  Create(whyfb[1]),
+                  Write(fibconv1))
+        self.wait()
+        self.play(Uncreate(whyfb[0]),
+                  Uncreate(whyfb[1]))
+        self.wait(0.2)
+        self.play(Transform(fibconv1,fibconv2),
+                  Create(whyfb[2]),
+                  Create(whyfb[3]))
+        self.wait()
+
+class New2ptF(Scene):
+    def construct(self):
+        title = Tex("To recap...").scale(3)
+        self.play(Write(title))
+        self.wait(0.5)
+        self.play(FadeOut(title))
+
+class New2ptG(Scene):
+    def construct(self):
+        title = Tex("Thanks for \\\\ watching!",
+                    tex_to_color_map = {"Thanks for \\\\ watching!": BLUE}).scale(2)
+        credit = Tex("Made by Alex Solis using \\\\ Manim Community 5.0",
+                     tex_to_color_map = {"Alex Solis": YELLOW})
+        
+        logo_green = "#87c2a5"
+        logo_blue = "#525893"
+        logo_red = "#e07a5f"
+        logo_black = "#343434"
+        ds_m = MathTex(r"\mathbb{M}", fill_color=WHITE).scale(7)
+        ds_m.shift(2.25 * LEFT + 1.5 * UP)
+        circle = Circle(color=logo_green, fill_opacity=1).shift(LEFT)
+        square = Square(color=logo_blue, fill_opacity=1).shift(UP)
+        triangle = Triangle(color=logo_red, fill_opacity=1).shift(RIGHT)
+        logo = VGroup(triangle, square, circle, ds_m).scale(0.25)  # order matters
+
+        rightGroup = VGroup(credit, logo).arrange(DOWN)
+        group = VGroup(title, rightGroup).arrange(RIGHT)
+        title.shift(LEFT*0.5)
+        rightGroup.shift(RIGHT*0.5)
+        self.play(Write(title,3))
+        self.play(Write(rightGroup, 2))
+        self.wait()
