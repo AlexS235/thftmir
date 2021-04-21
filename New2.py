@@ -495,3 +495,30 @@ class New2clarification(Scene):
                     tex_to_color_map = {"positive values":YELLOW}).scale(1.8)
         self.play(Create(text1))
         self.wait(4)
+
+class New2clarification2(Scene):
+    def construct(self):
+        irrationalExample = MathTex("\\pi = \\frac{?}{?}",
+                     tex_to_color_map={"\\pi = \\frac{?}{?}": RED})
+        irrationalExample.scale(3)
+        question2 = Tex("What is ", "the most \\\\ irrational number?",
+                       tex_to_color_map = {"What is": BLUE,
+                                           "most \\\\ irrational": YELLOW}
+                       ).scale(1.7).to_corner(UP)
+        question1 = Tex("Is pi ", "the most \\\\ irrational number?",
+                       tex_to_color_map = {"most \\\\ irrational": YELLOW}
+                       ).scale(1.7).to_corner(UP)
+        self.add(irrationalExample)
+        self.play(irrationalExample.animate.shift(DOWN),
+                  Write(question1))
+        self.wait()
+        self.play(TransformMatchingTex(question1, question2))
+        self.wait()
+        self.play(FadeOut(question2),
+                  irrationalExample.animate.shift(UP))
+        
+class Thumbnail(Scene):
+    def construct(self):
+        Title = VGroup(Tex("The hunt for the most", tex_to_color_map={"the most": YELLOW}).scale(2.5),
+                        Tex("Irrational Number", tex_to_color_map={"Irrational Number": BLUE}).scale(3.25)).arrange(DOWN)
+        self.add(Title)
